@@ -16,9 +16,13 @@ import Wordnik_API_KEY from './config/apikeys.js';
 const axios = require('axios');
 
 export default function App() {
-	const [enteredWord, setEnteredWord] = useState('');
 	const [definitionDisplay, setDefinitionDisplay] = useState([]);
 	const [favoriteWords, setFavoriteWords] = useState([]);
+	const [enteredWord, setEnteredWord] = useState('');
+
+	const wordInputHandler = (enteredText) => {
+		setEnteredWord(enteredText);
+	};
 
 	const searchWordHandler = () => {
 		axios
@@ -41,8 +45,15 @@ export default function App() {
 	return (
 		<View style={styles.screen}>
 			<Image source={logo} style={styles.logo} />
-			<WordInput onSearchWord={searchWordHandler} />
-			<WordItem word={definitionDisplay} />
+			<TextInput
+				placeholder="search for a word"
+				onChangeText={wordInputHandler}
+				value={enteredWord}
+			/>
+			<View>
+				<Button title="Search" onPress={searchWordHandler} />
+			</View>
+			<WordItem definition={definitionDisplay} />
 		</View>
 	);
 }
@@ -58,5 +69,12 @@ const styles = StyleSheet.create({
 		height: 160,
 		padding: 15,
 		marginBottom: 15,
+	},
+	inputContainer: {
+		borderColor: 'black',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+		borderWidth: 1,
+		padding: 10,
 	},
 });

@@ -5,9 +5,9 @@ const WordItem = (props) => {
 	return (
 		<ScrollView>
 			<View>
-				<Text>{props.word.word}</Text>
-				<Text>{props.word.text}</Text>
-				<Text>{props.word.attributionText}</Text>
+				<Text>{props.definition.word}</Text>
+				<Text>{props.definition.text}</Text>
+				<Text>{props.definition.attributionText}</Text>
 			</View>
 		</ScrollView>
 	);
