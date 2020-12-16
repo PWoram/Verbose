@@ -13,7 +13,7 @@ import {
 	View,
 	TextInput,
 } from 'react-native';
-import logo from './assets/logo.png';
+import logo from './assets/newLogo.png';
 import WordItem from './components/WordItem';
 import WordInput from './components/WordInput';
 import Wordnik_API_KEY from './config/apikeys.js';
@@ -39,7 +39,7 @@ export default function App() {
 	const searchWordHandler = () => {
 		axios
 			.get(
-				`http://api.wordnik.com/v4/word.json/${enteredWord}/definitions?api_key=${Wordnik_API_KEY}`,
+				`http://api.wordnik.com/v4/word.json/${enteredWord.toLowerCase()}/definitions?api_key=${Wordnik_API_KEY}`,
 				{
 					params: {
 						limit: 1,
@@ -55,20 +55,18 @@ export default function App() {
 	};
 
 	return (
-		<NavigationContainer>
-			<View style={styles.screen}>
-				<Image source={logo} style={styles.logo} />
-				<TextInput
-					placeholder="search for a word"
-					onChangeText={wordInputHandler}
-					value={enteredWord}
-				/>
-				<View>
-					<Button title="Search" onPress={searchWordHandler} />
-				</View>
-				<WordItem definition={definitionDisplay} />
+		<View style={styles.screen}>
+			<Image source={logo} style={styles.logo} />
+			<TextInput
+				placeholder="search for a word"
+				onChangeText={wordInputHandler}
+				value={enteredWord}
+			/>
+			<View>
+				<Button title="Search" onPress={searchWordHandler} />
 			</View>
-		</NavigationContainer>
+			<WordItem definition={definitionDisplay} />
+		</View>
 	);
 }
 
@@ -80,7 +78,7 @@ const styles = StyleSheet.create({
 		backgroundColor: '#e6e1a2',
 	},
 	logo: {
-		width: 160,
+		width: 240,
 		height: 160,
 		padding: 15,
 		marginBottom: 15,
