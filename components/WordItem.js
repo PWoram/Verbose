@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
 	Button,
 	StyleSheet,
@@ -9,9 +10,16 @@ import {
 } from 'react-native';
 
 const WordItem = (props) => {
-	// const addToFavoritesHandler = () => {
-
-	// }
+	const addToFavoritesHandler = () => {
+		const storeData = async (props) => {
+			try {
+				const jsonValue = JSON.stringify(value);
+				await AsyncStorage.setItem('@storage_Key', jsonValue);
+			} catch (e) {
+				console.log('error:', e);
+			}
+		};
+	};
 
 	return (
 		<ScrollView>
@@ -21,7 +29,7 @@ const WordItem = (props) => {
 				<Text>{props.definition.attributionText}</Text>
 			</View>
 			<View>
-				{/* <Button title="add to favorites" onPress={addToFavoritesHandler} /> */}
+				<Button title="add to favorites" onPress={addToFavoritesHandler} />
 			</View>
 		</ScrollView>
 	);
