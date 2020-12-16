@@ -1,3 +1,7 @@
+import 'react-native-gesture-handler';
+// import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import {
@@ -14,6 +18,14 @@ import WordItem from './components/WordItem';
 import WordInput from './components/WordInput';
 import Wordnik_API_KEY from './config/apikeys.js';
 const axios = require('axios');
+
+function HomeScreen() {
+	return (
+		<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+			<Text>Home Screen</Text>
+		</View>
+	);
+}
 
 export default function App() {
 	const [definitionDisplay, setDefinitionDisplay] = useState([]);
@@ -43,18 +55,20 @@ export default function App() {
 	};
 
 	return (
-		<View style={styles.screen}>
-			<Image source={logo} style={styles.logo} />
-			<TextInput
-				placeholder="search for a word"
-				onChangeText={wordInputHandler}
-				value={enteredWord}
-			/>
-			<View>
-				<Button title="Search" onPress={searchWordHandler} />
+		<NavigationContainer>
+			<View style={styles.screen}>
+				<Image source={logo} style={styles.logo} />
+				<TextInput
+					placeholder="search for a word"
+					onChangeText={wordInputHandler}
+					value={enteredWord}
+				/>
+				<View>
+					<Button title="Search" onPress={searchWordHandler} />
+				</View>
+				<WordItem definition={definitionDisplay} />
 			</View>
-			<WordItem definition={definitionDisplay} />
-		</View>
+		</NavigationContainer>
 	);
 }
 
@@ -63,6 +77,7 @@ const styles = StyleSheet.create({
 		padding: 60,
 		justifyContent: 'space-between',
 		alignItems: 'center',
+		backgroundColor: '#e6e1a2',
 	},
 	logo: {
 		width: 160,
