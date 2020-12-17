@@ -21,19 +21,32 @@ const WordItem = (props) => {
 		// 	}
 		// };
 	};
-
-	return (
-		<ScrollView>
-			<View>
-				<Text>{props.definition.word}</Text>
-				<Text>{props.definition.text}</Text>
-				<Text>{props.definition.attributionText}</Text>
-			</View>
-			<View>
-				<Button title="add to favorites" onPress={addToFavoritesHandler} />
-			</View>
-		</ScrollView>
-	);
+	if (props.definition.definitions) {
+		return (
+			<ScrollView>
+				<View>
+					<Text>{props.definition.word}</Text>
+					{props.definition.definitions.map((definition) => (
+						<View>
+							<Text>{definition.definition}</Text>
+						</View>
+					))}
+				</View>
+				<View>
+					<Button title="add to favorites" onPress={addToFavoritesHandler} />
+				</View>
+			</ScrollView>
+		);
+	} else {
+		return <View></View>;
+	}
 };
 
+const styles = StyleSheet.create({
+	word: {
+		padding: 5,
+		fontSize: 10,
+		fontWeight: '500',
+	},
+});
 export default WordItem;

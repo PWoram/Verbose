@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 import logo from '../assets/newLogo.png';
 import WordItem from '../components/WordItem';
-import Wordnik_API_KEY from '../config/apikeys.js';
+import Words_API_KEY from '../config/apikeys.js';
 import FavoriteWordsScreen from './FavoriteWordsScreen';
 const axios = require('axios');
 
@@ -27,19 +27,20 @@ export default function HomeScreen({ navigation }) {
 	};
 
 	const searchWordHandler = () => {
+		const options = {
+			method: 'GET',
+			url: `https://wordsapiv1.p.rapidapi.com/words/${enteredWord}/definitions`,
+			headers: {
+				'x-rapidapi-key': Words_API_KEY,
+				'x-rapidapi-host': 'wordsapiv1.p.rapidapi.com',
+			},
+		};
+
 		axios
-			.get(
-				`http://api.wordnik.com/v4/word.json/${enteredWord.toLowerCase()}/definitions?api_key=${Wordnik_API_KEY}`,
-				{
-					params: {
-						limit: 1,
-						useCanonical: true,
-					},
-				}
-			)
-			.then((data) => {
-				console.log('data:', data.data[0]);
-				setDefinitionDisplay(data.data[0]);
+			.request(options)
+			.then((response) => {
+				console.log('response:', response.data);
+				setDefinitionDisplay(response.data);
 			})
 			.catch((err) => console.log('error:', err));
 	};
