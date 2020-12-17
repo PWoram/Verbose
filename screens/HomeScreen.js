@@ -2,6 +2,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StatusBar } from 'expo-status-bar';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useState } from 'react';
 import {
 	StyleSheet,
@@ -12,7 +13,7 @@ import {
 	View,
 	TextInput,
 } from 'react-native';
-import logo from '../assets/newLogo.png';
+import logo from '../assets/newestLogo.png';
 import WordItem from '../components/WordItem';
 import Words_API_KEY from '../config/apikeys.js';
 import FavoriteWordsScreen from './FavoriteWordsScreen';
@@ -21,9 +22,33 @@ const axios = require('axios');
 export default function HomeScreen({ navigation }) {
 	const [definitionDisplay, setDefinitionDisplay] = useState([]);
 	const [enteredWord, setEnteredWord] = useState('');
+	const [favoriteWords, setFavoriteWords] = useState([]);
+	const [displayOn, toggleDisplayOn] = useState(false);
 
 	const wordInputHandler = (enteredText) => {
 		setEnteredWord(enteredText);
+	};
+
+	const setObjectValue = async (value) => {
+		try {
+			const jsonValue = JSON.stringify('key', value);
+			await AsyncStorage.setItem(jsonValue);
+		} catch (e) {
+			// save error
+			console.log('error saving', e);
+		}
+
+		console.log('Done.');
+	};
+
+	const addFavoriteWordHandler = () => {
+		setFavoriteWords((currentFavoriteWords) => [
+			...currentFavoriteWords,
+			{ id: Math.random().toString(), value: definitionDisplay },
+		]);
+		console.log(favoriteWords);
+		var favWordsArray = [favoriteWords];
+		setObjectValue(favWordsArray);
 	};
 
 	const searchWordHandler = () => {
@@ -39,7 +64,6 @@ export default function HomeScreen({ navigation }) {
 		axios
 			.request(options)
 			.then((response) => {
-				console.log('response:', response.data);
 				setDefinitionDisplay(response.data);
 			})
 			.catch((err) => console.log('error:', err));
@@ -47,27 +71,30 @@ export default function HomeScreen({ navigation }) {
 
 	return (
 		<View style={styles.screen}>
-			<View style={{ flex: 2 }}>
+			<View style={{}}>
 				<Image source={logo} style={styles.logo} />
-				<View style={styles.inputContainer}>
-					<TextInput
-						placeholder="search for a word"
-						onChangeText={wordInputHandler}
-						value={enteredWord}
-					/>
-				</View>
+			</View>
+			<View style={styles.inputContainer}>
+				<TextInput
+					placeholder="search for a word"
+					onChangeText={wordInputHandler}
+					value={enteredWord}
+					style={styles.input}
+				/>
 				<Button title="Search" onPress={searchWordHandler} />
 			</View>
 
 			<View style={styles.definitionContainer}>
 				<WordItem definition={definitionDisplay} />
+				<Button title="Add to Favorites" onPress={addFavoriteWordHandler} />
 			</View>
 			<View style={{ alignItems: 'flex-end' }}>
 				<Button
-					title="Go to favorite words"
+					title="Go to Favorite Words"
 					onPress={() => navigation.navigate('FavoriteWordsScreen')}
 				/>
 			</View>
+			<View style={{ flex: 1 }}></View>
 		</View>
 	);
 }
@@ -75,26 +102,30 @@ export default function HomeScreen({ navigation }) {
 const styles = StyleSheet.create({
 	screen: {
 		flex: 1,
-		padding: 60,
 		justifyContent: 'space-between',
 		alignItems: 'center',
 		backgroundColor: '#DFDAC9',
 	},
 	logo: {
-		width: 240,
-		height: 160,
+		transform: [{ scale: 0.55 }],
 		padding: 15,
 		marginBottom: 15,
 	},
 	inputContainer: {
-		borderColor: 'grey',
+		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'center',
+	},
+	input: {
+		borderColor: 'grey',
 		borderWidth: 1,
 		padding: 10,
+		width: '70%',
 	},
 	definitionContainer: {
-		alignSelf: 'stretch',
+		justifyContent: 'space-between',
+		padding: 20,
 		flex: 3,
+		maxWidth: 350,
 	},
 });

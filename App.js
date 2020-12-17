@@ -14,12 +14,12 @@ export default function App() {
 				<Stack.Screen
 					name="Home"
 					component={Home}
-					style={{ backgroundColor: '#DFDAC9' }}
+					options={{ backgroundColor: '#DFDAC9' }}
 				/>
 				<Stack.Screen
 					name="FavoriteWordsScreen"
 					component={FavoriteWordsScreen}
-					options={{ title: 'Favorite Words' }}
+					options={{ title: 'Favorite Words', backgroundColor: '#DFDAC9' }}
 				/>
 			</Stack.Navigator>
 		</NavigationContainer>

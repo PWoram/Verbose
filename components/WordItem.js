@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
 	Button,
 	StyleSheet,
@@ -10,24 +10,19 @@ import {
 } from 'react-native';
 
 const WordItem = (props) => {
-	const addToFavoritesHandler = () => {
-		console.log('added to favorites');
-	};
-
 	if (props.definition.definitions) {
 		return (
 			<ScrollView>
 				<View>
-					<Text>{props.definition.word}</Text>
+					<Text style={styles.word}>{props.definition.word}</Text>
 					{props.definition.definitions.map((definition) => (
-						<View>
-							<Text>{definition.definition}</Text>
+						<View style={styles.definitions}>
+							<Text>{definition.partOfSpeech}</Text>
+							<Text key={definition.id}>{definition.definition}</Text>
 						</View>
 					))}
 				</View>
-				<View>
-					<Button title="add to favorites" onPress={addToFavoritesHandler} />
-				</View>
+				<View></View>
 			</ScrollView>
 		);
 	} else {
@@ -37,9 +32,12 @@ const WordItem = (props) => {
 
 const styles = StyleSheet.create({
 	word: {
-		padding: 5,
-		fontSize: 10,
-		fontWeight: '500',
+		marginBottom: 10,
+		fontWeight: '600',
+	},
+	definitions: {
+		marginTop: 5,
+		marginBottom: 5,
 	},
 });
 export default WordItem;
