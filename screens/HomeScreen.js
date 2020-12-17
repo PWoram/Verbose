@@ -1,4 +1,3 @@
-import 'react-native-gesture-handler';
 // import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -16,11 +15,11 @@ import {
 import logo from '../assets/newLogo.png';
 import WordItem from '../components/WordItem';
 import Wordnik_API_KEY from '../config/apikeys.js';
+import FavoriteWordsScreen from './FavoriteWordsScreen';
 const axios = require('axios');
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
 	const [definitionDisplay, setDefinitionDisplay] = useState([]);
-	const [favoriteWords, setFavoriteWords] = useState([]);
 	const [enteredWord, setEnteredWord] = useState('');
 
 	const wordInputHandler = (enteredText) => {
@@ -54,19 +53,26 @@ export default function HomeScreen() {
 				value={enteredWord}
 			/>
 			<View>
-				<Button title="Search for a word" onPress={searchWordHandler} />
+				<Button title="Search" onPress={searchWordHandler} />
 			</View>
 			<WordItem definition={definitionDisplay} />
+			<View style={{ alignItems: 'flex-end' }}>
+				<Button
+					title="Go to favorite words"
+					onPress={() => navigation.navigate('FavoriteWordsScreen')}
+				/>
+			</View>
 		</View>
 	);
 }
 
 const styles = StyleSheet.create({
 	screen: {
+		flex: 1,
 		padding: 60,
 		justifyContent: 'space-between',
 		alignItems: 'center',
-		backgroundColor: '#e6e1a2',
+		backgroundColor: '#DFDAC9',
 	},
 	logo: {
 		width: 240,
@@ -78,6 +84,7 @@ const styles = StyleSheet.create({
 		borderColor: 'black',
 		justifyContent: 'space-between',
 		alignItems: 'center',
+		width: '240',
 		borderWidth: 1,
 		padding: 10,
 	},

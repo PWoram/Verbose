@@ -10,5 +10,9 @@ import {
 } from 'react-native';
 
 export default function FavoriteWordsScreen() {
-	return <View>Favorite Words</View>;
+	return (
+		<View style={{ backgroundColor: '#DFDAC9' }}>
+			<Text>Favorite Words</Text>
+		</View>
+	);
 }
