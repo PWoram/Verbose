@@ -12,15 +12,8 @@ import {
 const WordItem = (props) => {
 	const addToFavoritesHandler = () => {
 		console.log('added to favorites');
-		// const storeData = async (props) => {
-		// 	try {
-		// 		const jsonValue = JSON.stringify(value);
-		// 		await AsyncStorage.setItem('@storage_Key', jsonValue);
-		// 	} catch (e) {
-		// 		console.log('error:', e);
-		// 	}
-		// };
 	};
+
 	if (props.definition.definitions) {
 		return (
 			<ScrollView>

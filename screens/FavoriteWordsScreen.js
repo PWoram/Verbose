@@ -11,7 +11,7 @@ import {
 
 export default function FavoriteWordsScreen() {
 	return (
-		<View style={{ backgroundColor: '#DFDAC9' }}>
+		<View style={{ backgroundColor: '#DFDAC9', flex: 1 }}>
 			<Text>Favorite Words</Text>
 		</View>
 	);

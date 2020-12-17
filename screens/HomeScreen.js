@@ -47,16 +47,21 @@ export default function HomeScreen({ navigation }) {
 
 	return (
 		<View style={styles.screen}>
-			<Image source={logo} style={styles.logo} />
-			<TextInput
-				placeholder="search for a word"
-				onChangeText={wordInputHandler}
-				value={enteredWord}
-			/>
-			<View>
+			<View style={{ flex: 2 }}>
+				<Image source={logo} style={styles.logo} />
+				<View style={styles.inputContainer}>
+					<TextInput
+						placeholder="search for a word"
+						onChangeText={wordInputHandler}
+						value={enteredWord}
+					/>
+				</View>
 				<Button title="Search" onPress={searchWordHandler} />
 			</View>
-			<WordItem definition={definitionDisplay} />
+
+			<View style={styles.definitionContainer}>
+				<WordItem definition={definitionDisplay} />
+			</View>
 			<View style={{ alignItems: 'flex-end' }}>
 				<Button
 					title="Go to favorite words"
@@ -82,11 +87,14 @@ const styles = StyleSheet.create({
 		marginBottom: 15,
 	},
 	inputContainer: {
-		borderColor: 'black',
+		borderColor: 'grey',
 		justifyContent: 'space-between',
 		alignItems: 'center',
-		width: '240',
 		borderWidth: 1,
 		padding: 10,
+	},
+	definitionContainer: {
+		alignSelf: 'stretch',
+		flex: 3,
 	},
 });
