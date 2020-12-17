@@ -9,23 +9,12 @@ import {
 	View,
 	TextInput,
 } from 'react-native';
+import WordItem from '../components/WordItem';
 
-export default function FavoriteWordsScreen() {
-	const [favWords, setFavWords] = useState([]);
-
-	const getMyObject = async () => {
-		try {
-			const jsonValue = await AsyncStorage.getItem('key');
-			return jsonValue != null ? setFavWords(JSON.parse(jsonValue)) : null;
-		} catch (e) {
-			// read error
-		}
-		console.log('Done.');
-	};
-
-	useEffect(() => {
-		getMyObject();
-	}, []);
+export default function FavoriteWordsScreen({ route, navigation }) {
+	const { favoriteWords } = route.params;
+	// const uniqueFavoriteWords = favoriteWords.unique();
+	const [favWords, setFavWords] = useState(favWords);
 
 	const clearStorage = async () => {
 		try {
@@ -38,12 +27,22 @@ export default function FavoriteWordsScreen() {
 
 	return (
 		<View style={styles.screen}>
-			<Text>Favorite Words</Text>
-			<Button
-				title="Clear Favorite Words"
-				onPress={clearStorage}
-				style={styles.button}
-			/>
+			<View style={styles.favoriteWordsContainer}>
+				{favoriteWords.map((word) => (
+					<View style={{ flexDirection: 'row' }}>
+						<WordItem definition={word.value} />
+						{/* <Text>{word.value.word}</Text>
+						<Text>{word.value.definitions[0]}</Text> */}
+					</View>
+				))}
+			</View>
+			<View style={styles.buttonContainer}>
+				<Button
+					title="Clear Favorite Words"
+					onPress={clearStorage}
+					style={styles.button}
+				/>
+			</View>
 		</View>
 	);
 }
@@ -57,4 +56,26 @@ const styles = StyleSheet.create({
 	button: {
 		paddingTop: 60,
 	},
+	buttonContainer: {
+		flex: 1,
+	},
+	favoriteWordsContainer: {
+		alignContent: 'flex-start',
+		flex: 3,
+		paddingTop: 20,
+	},
 });
+
+// const getMyObject = async () => {
+// 	try {
+// 		const jsonValue = await AsyncStorage.getItem('key');
+// 		return jsonValue != null ? setFavWords(JSON.parse(jsonValue)) : null;
+// 	} catch (e) {
+// 		// read error
+// 	}
+// 	console.log('Done.');
+// };
+
+// useEffect(() => {
+// 	getMyObject();
+// }, []);

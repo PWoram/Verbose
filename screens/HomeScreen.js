@@ -44,11 +44,8 @@ export default function HomeScreen({ navigation }) {
 	const addFavoriteWordHandler = () => {
 		setFavoriteWords((currentFavoriteWords) => [
 			...currentFavoriteWords,
-			{ id: Math.random().toString(), value: definitionDisplay },
+			{ id: definitionDisplay.word, value: definitionDisplay },
 		]);
-		console.log(favoriteWords);
-		var favWordsArray = [favoriteWords];
-		setObjectValue(favWordsArray);
 	};
 
 	const searchWordHandler = () => {
@@ -91,7 +88,11 @@ export default function HomeScreen({ navigation }) {
 			<View style={{ alignItems: 'flex-end' }}>
 				<Button
 					title="Go to Favorite Words"
-					onPress={() => navigation.navigate('FavoriteWordsScreen')}
+					onPress={() =>
+						navigation.navigate('FavoriteWordsScreen', {
+							favoriteWords: favoriteWords,
+						})
+					}
 				/>
 			</View>
 			<View style={{ flex: 1 }}></View>
