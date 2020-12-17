@@ -10,6 +10,7 @@ import {
 	TextInput,
 } from 'react-native';
 import WordItem from '../components/WordItem';
+import FavoriteWord from '../components/FavoriteWord';
 
 export default function FavoriteWordsScreen({ route, navigation }) {
 	const { favoriteWords } = route.params;
@@ -65,8 +66,8 @@ export default function FavoriteWordsScreen({ route, navigation }) {
 		<View style={styles.screen}>
 			<View style={styles.favoriteWordsContainer}>
 				{favoriteWords.map((word) => (
-					<View style={{ flexDirection: 'row' }}>
-						<WordItem definition={word.value} />
+					<View>
+						<FavoriteWord definition={word.value} />
 						{/* <Text>{word.value.word}</Text>
 						<Text>{word.value.definitions[0]}</Text> */}
 					</View>
