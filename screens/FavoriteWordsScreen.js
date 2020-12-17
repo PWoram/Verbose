@@ -13,8 +13,44 @@ import WordItem from '../components/WordItem';
 
 export default function FavoriteWordsScreen({ route, navigation }) {
 	const { favoriteWords } = route.params;
-	// const uniqueFavoriteWords = favoriteWords.unique();
+
 	const [favWords, setFavWords] = useState(favWords);
+
+	// const uniq = function (array, isSorted, iterator) {
+	// 	// when given an unsorted array
+	// 	if (iterator === undefined) {
+	// 		var counter = {};
+	// 		var result = [];
+
+	// 		for (var i = 0; i < array.length; i++) {
+	// 			if (counter[array[i]] === undefined) {
+	// 				counter[array[i]] = 1;
+	// 				result.push(array[i]);
+	// 			} else {
+	// 				counter[array[i]]++;
+	// 			}
+	// 		}
+	// 		return result;
+	// 	} else {
+	// 		var counter = {};
+	// 		var result = [];
+
+	// 		for (var i = 0; i < array.length; i++) {
+	// 			if (iterator(iterator(counter[array[i]])) === undefined) {
+	// 				counter[iterator(array[i])] = 1;
+	// 				result.push(iterator(array[i]));
+	// 			} else {
+	// 				counter[iterator(array[i])]++;
+	// 			}
+	// 		}
+	// 		return result;
+	// 	}
+	// };
+	// var uniqueFavoriteWords = uniq(
+	// 	favoriteWords,
+	// 	false,
+	// 	(function ((word) => { word = word.value.word }))
+	// );
 
 	const clearStorage = async () => {
 		try {
