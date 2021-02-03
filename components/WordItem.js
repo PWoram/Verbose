@@ -17,7 +17,7 @@ const WordItem = (props) => {
 					<Text style={styles.word}>{props.definition.word}</Text>
 					{props.definition.definitions.map((definition) => (
 						<View style={styles.definitions}>
-							<Text>{definition.partOfSpeech}</Text>
+							<Text key={definition.word}>{definition.partOfSpeech}</Text>
 							<Text key={definition.id}>{definition.definition}</Text>
 						</View>
 					))}

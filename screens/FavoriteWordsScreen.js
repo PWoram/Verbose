@@ -67,19 +67,19 @@ export default function FavoriteWordsScreen({ route, navigation }) {
 			<View style={styles.favoriteWordsContainer}>
 				{favoriteWords.map((word) => (
 					<View>
-						<FavoriteWord definition={word.value} />
+						<FavoriteWord definition={word.value} key={word.value.word} />
 						{/* <Text>{word.value.word}</Text>
 						<Text>{word.value.definitions[0]}</Text> */}
 					</View>
 				))}
 			</View>
-			<View style={styles.buttonContainer}>
+			{/* <View style={styles.buttonContainer}>
 				<Button
 					title="Clear Favorite Words"
 					onPress={clearStorage}
 					style={styles.button}
 				/>
-			</View>
+			</View> */}
 		</View>
 	);
 }
